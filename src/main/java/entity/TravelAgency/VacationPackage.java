@@ -2,11 +2,10 @@ package entity.TravelAgency;
 
 
 import lombok.*;
+import net.bytebuddy.asm.Advice;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -26,10 +25,10 @@ public class VacationPackage {
     private double price;
 
     @Column
-    private Date startDate;
+    private LocalDate startDate;
 
     @Column
-    private Date endDate;
+    private LocalDate endDate;
 
     @Column
     private String extraSpecifications;
@@ -37,11 +36,18 @@ public class VacationPackage {
     @Column
     private int peopleCapacity;
 
+    @Column
+    private int bookings;
+
+    @ManyToOne
+    @JoinColumn(name = "destination_id")
+    private Destination destination;
+
 
     public VacationPackage(){}
 
 
-    public VacationPackage(String id, String name, double price, Date startDate, Date endDate, String extraSpecifications, int peopleCapacity) {
+    public VacationPackage(String id, String name, double price, LocalDate startDate, LocalDate endDate, String extraSpecifications, int peopleCapacity, int bookings, Destination destination) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -49,5 +55,7 @@ public class VacationPackage {
         this.endDate = endDate;
         this.extraSpecifications = extraSpecifications;
         this.peopleCapacity = peopleCapacity;
+        this.bookings = bookings;
+        this.destination = destination;
     }
 }

@@ -74,5 +74,13 @@
       <Label fx:id="countryWarning" layoutX="856.0" layoutY="220.0" text="Required!" textFill="#f80a0a" visible="false" />
       <Label fx:id="ratingWarning" layoutX="841.0" layoutY="305.0" prefHeight="18.0" prefWidth="70.0" text="Select one" textFill="#f80a0a" visible="false" />
       <Label fx:id="popularityWarning" layoutX="841.0" layoutY="408.0" prefHeight="18.0" prefWidth="70.0" text="Select one" textFill="#f80a0a" visible="false" />
+      <Button fx:id="viewPackagesButton" layoutX="687.0" layoutY="535.0" mnemonicParsing="false" onAction="#viewPackagesClick" prefHeight="26.0" prefWidth="171.0" style="-fx-border-width: 10px; -fx-background-color: linear-gradient(#fcfcfc 0%, #d9d9d9 20%, #d6d6d6 100%); -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );" text="View All Pacakges">
+         <font>
+            <Font name="Comic Sans MS Bold Italic" size="14.0" />
+         </font>
+         <effect>
+            <Glow />
+         </effect>
+      </Button>
    </children>
 </AnchorPane>

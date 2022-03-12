@@ -1,5 +1,6 @@
 package api.controller;
 
+import api.models.UserModel;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -73,6 +74,41 @@ public class PageManagementController {
         destinationController.setStage(primaryStage);
         primaryStage.setTitle("Vacation destinations");
         primaryStage.setScene(new Scene(root, 920, 627));
+        stage.close();
+        primaryStage.show();
+    }
+
+    public static void setPackagesController(Stage stage) throws IOException {
+        URL url = new File("src/main/resources/Views/allPackages.fxml").toURI().toURL();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(url);
+        Parent root = loader.load();
+
+        AllPackagesController allPackagesController = loader.getController();
+        allPackagesController.setTableViewDestinations();
+        Stage primaryStage = new Stage();
+        allPackagesController.setStage(primaryStage);
+        primaryStage.setTitle("Vacation packages");
+        primaryStage.setScene(new Scene(root, 931, 688));
+        stage.close();
+        primaryStage.show();
+    }
+
+    public static void setUserPage(Stage stage, UserModel userModel) throws IOException {
+        URL url = new File("src/main/resources/Views/userPage.fxml").toURI().toURL();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(url);
+        Parent root = loader.load();
+
+        UserPageController userPageController = loader.getController();
+
+        Stage primaryStage = new Stage();
+        userPageController.setStage(primaryStage);
+        userPageController.setUserModel(userModel);
+        userPageController.setDestinationComboBox();
+        userPageController.setPackageTable();
+        primaryStage.setTitle("User Homepage");
+        primaryStage.setScene(new Scene(root, 902, 657));
         stage.close();
         primaryStage.show();
     }

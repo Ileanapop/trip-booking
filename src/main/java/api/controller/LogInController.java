@@ -1,5 +1,7 @@
 package api.controller;
 
+import Util.Mapper;
+import api.models.UserModel;
 import interfaces.IUserService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,7 +16,7 @@ import java.io.IOException;
 
 public class LogInController {
 
-    private IUserService userService = new UserService();
+    private final IUserService userService = new UserService();
     private Stage stage;
 
     @FXML
@@ -53,8 +55,9 @@ public class LogInController {
 
         if(!usernameTextField.getText().equals("")){
             if(!passwordField.getText().equals("")){
-                if(userService.authenticateUser(usernameTextField.getText(), passwordField.getText())){
-                    PageManagementController.setFirstPage(stage);
+                UserModel userModel = userService.authenticateUser(usernameTextField.getText(), passwordField.getText());
+                if(userModel!=null){
+                    PageManagementController.setUserPage(stage,userModel);
                 }
             }
         }

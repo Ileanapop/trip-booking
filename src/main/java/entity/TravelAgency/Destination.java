@@ -1,11 +1,11 @@
 package entity.TravelAgency;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import lombok.*;
+
+import java.util.List;
+
 @Getter
 @Setter
 
@@ -27,6 +27,9 @@ public class Destination {
 
     @Column
     private PopularityLevel popularityLevel;
+
+    @OneToMany(mappedBy = "destination", cascade = CascadeType.ALL,orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<VacationPackage> vacationPackageList;
 
     public Destination(){}
 

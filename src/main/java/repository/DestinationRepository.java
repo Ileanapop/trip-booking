@@ -23,15 +23,25 @@ public class DestinationRepository implements IDestinationRepository {
         return query.getResultList();
     }
 
+    public Destination getDestinationById(String id){
+        EntityManager em = entityManagerFactory.createEntityManager();
+        em.getTransaction().begin();
+        Query query = em.createQuery("SELECT d FROM Destination d where d.id = :ID");
+        query.setParameter("ID", id);
+        return (Destination) query.getResultList().get(0);
+    }
+
     @Override
     public boolean deleteDestination(String id) {
         EntityManager em = entityManagerFactory.createEntityManager();
         em.getTransaction().begin();
-        Query query = em.createQuery("DELETE FROM Destination WHERE id = id");
-        int row = query.executeUpdate();
+        Query query = em.createQuery("SELECT d FROM Destination d where d.id = :ID");
+        query.setParameter("ID", id);
+        Destination destination =(Destination) query.getResultList().get(0);
+        em.remove(destination);
         em.getTransaction().commit();
         em.close();
-        return row!=0;
+        return true;
     }
 
     @Override

@@ -11,13 +11,20 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import lombok.SneakyThrows;
 import service.DestinationService;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 import java.util.List;
 
 
@@ -79,6 +86,15 @@ public class DestinationController {
 
     @FXML
     private Label popularityWarning;
+
+
+    @FXML
+    void viewPackagesClick(ActionEvent event) throws IOException {
+        PageManagementController.setPackagesController(stage);
+    }
+
+    @FXML
+    private Button viewPackagesButton;
 
     @FXML
     void newDestinationClick(ActionEvent event) {
@@ -184,10 +200,20 @@ public class DestinationController {
             });
 
             selectedDestination.getAddPackage().setOnAction(new EventHandler() {
+                @SneakyThrows
                 @Override
                 public void handle(Event event) {
-                    //destinationService.deleteDestination(selectedDestination.getId());
-                    //displayTableDestinations();
+                    URL url = new File("src/main/resources/Views/newPackage.fxml").toURI().toURL();
+                    FXMLLoader loader = new FXMLLoader();
+                    loader.setLocation(url);
+                    Parent root = loader.load();
+                    NewPackageController newPackageController = loader.getController();
+                    newPackageController.setDestinationModel(selectedDestination);
+                    newPackageController.setDestinationDetails();
+                    Stage primaryStage = new Stage();
+                    primaryStage.setTitle("New package");
+                    primaryStage.setScene(new Scene(root, 815, 437));
+                    primaryStage.show();
                 }
             });
         }
@@ -213,6 +239,7 @@ public class DestinationController {
         tableViewDestinations.getColumns().add(ratingStarsColumn);
         tableViewDestinations.getColumns().add(popularityLevelColumn);
         tableViewDestinations.getColumns().add(deleteDestinationColumn);
+        tableViewDestinations.getColumns().add(addPackageColumn);
         destinationsVBox.getChildren().add(tableViewDestinations);
 
         ObservableList<DestinationModel> observableList = FXCollections.observableList(destinationService.getDestinations());

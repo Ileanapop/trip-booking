@@ -32,4 +32,14 @@ public class UserRepository implements IUserRepository {
         return query.getResultList();
     }
 
+    @Override
+    public User getUserById(String id) {
+        EntityManager em = entityManagerFactory.createEntityManager();
+        em.getTransaction().begin();
+        User user = em.find(User.class,id);
+        em.getTransaction().commit();
+        em.close();
+        return user;
+    }
+
 }

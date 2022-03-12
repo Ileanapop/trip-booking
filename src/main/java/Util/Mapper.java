@@ -4,6 +4,7 @@ import api.models.DestinationModel;
 import api.models.PopularityLevelModel;
 import api.models.UserModel;
 import api.models.VacationPackageModel;
+import com.sun.xml.bind.v2.runtime.reflect.Lister;
 import entity.TravelAgency.Destination;
 import entity.TravelAgency.PopularityLevel;
 import entity.TravelAgency.VacationPackage;
@@ -32,7 +33,7 @@ public class Mapper {
                 vacationPackage.getName(),vacationPackage.getPrice(),
                 vacationPackage.getStartDate(),vacationPackage.getEndDate(),
                 vacationPackage.getExtraSpecifications(),
-                vacationPackage.getPeopleCapacity());
+                vacationPackage.getPeopleCapacity(), vacationPackage.getBookings());
     }
 
     public static List<DestinationModel> dstListEntitiesToDstModelList(List<Destination> destinationList){
@@ -50,5 +51,22 @@ public class Mapper {
         if(popularityLevelModel == PopularityLevelModel.LOW)
             return PopularityLevel.LOW;
         return PopularityLevel.MEDIUM;
+    }
+
+    public static Destination destinationModelToEntityModel(DestinationModel destinationModel){
+        return new Destination(destinationModel.getId(),
+                destinationModel.getLocation(),
+                destinationModel.getCountry(),
+                destinationModel.getRatingStars(),
+                destinationModel.getPopularityLevel());
+    }
+
+    public static List<VacationPackageModel> packageEntityListToPackageModelList(List<VacationPackage> vacationPackageList){
+        List<VacationPackageModel> vacationPackageModels = new ArrayList<>();
+
+        for(VacationPackage vacationPackage:vacationPackageList){
+            vacationPackageModels.add(entityVacationPackageToModelVacationPackage(vacationPackage));
+        }
+        return vacationPackageModels;
     }
 }

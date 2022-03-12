@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="688.0" prefWidth="931.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="api.controller.AllPackagesController">
+   <children>
+      <VBox fx:id="packagesVBox" layoutX="34.0" layoutY="39.0" prefHeight="353.0" prefWidth="864.0" />
+      <Button fx:id="backButton" layoutX="859.0" layoutY="642.0" mnemonicParsing="false" onAction="#backClick" prefHeight="26.0" prefWidth="57.0" style="-fx-background-radius: 50%; -fx-border-width: 10px; -fx-background-color: linear-gradient(#fcfcfc 0%, #d9d9d9 20%, #d6d6d6 100%); -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );" text="Back">
+         <font>
+            <Font name="Comic Sans MS Bold Italic" size="14.0" />
+         </font>
+         <effect>
+            <Glow />
+         </effect>
+      </Button>
+      <Label alignment="CENTER" layoutX="52.0" layoutY="407.0" prefHeight="26.0" prefWidth="144.0" style="-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 ); -fx-background-color: linear-gradient(#ffe657 0%, #f8c202 50%, #eea10b 100%);" text="Package details:">
+         <font>
+            <Font name="Comic Sans MS Bold" size="18.0" />
+         </font>
+         <effect>
+            <Glow />
+         </effect>
+      </Label>
+      <Label alignment="CENTER" layoutX="62.0" layoutY="444.0" prefHeight="26.0" prefWidth="74.0" style="-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 ); -fx-background-color: linear-gradient(#ffe657 0%, #f8c202 50%, #eea10b 100%);" text="Name:">
+         <font>
+            <Font name="Comic Sans MS Bold" size="12.0" />
+         </font>
+         <effect>
+            <Glow />
+         </effect>
+      </Label>
+      <Label alignment="CENTER" layoutX="62.0" layoutY="489.0" prefHeight="26.0" prefWidth="74.0" style="-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 ); -fx-background-color: linear-gradient(#ffe657 0%, #f8c202 50%, #eea10b 100%);" text="Price:">
+         <font>
+            <Font name="Comic Sans MS Bold" size="12.0" />
+         </font>
+         <effect>
+            <Glow />
+         </effect>
+      </Label>
+      <Label alignment="CENTER" layoutX="62.0" layoutY="527.0" prefHeight="26.0" prefWidth="74.0" style="-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 ); -fx-background-color: linear-gradient(#ffe657 0%, #f8c202 50%, #eea10b 100%);" text="Start Date:">
+         <font>
+            <Font name="Comic Sans MS Bold" size="12.0" />
+         </font>
+         <effect>
+            <Glow />
+         </effect>
+      </Label>
+      <Label alignment="CENTER" layoutX="62.0" layoutY="565.0" prefHeight="26.0" prefWidth="98.0" style="-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 ); -fx-background-color: linear-gradient(#ffe657 0%, #f8c202 50%, #eea10b 100%);" text="Extra details:">
+         <font>
+            <Font name="Comic Sans MS Bold" size="12.0" />
+         </font>
+         <effect>
+            <Glow />
+         </effect>
+      </Label>
+      <Label alignment="CENTER" layoutX="317.0" layoutY="530.0" prefHeight="26.0" prefWidth="74.0" style="-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 ); -fx-background-color: linear-gradient(#ffe657 0%, #f8c202 50%, #eea10b 100%);" text="End Date:">
+         <font>
+            <Font name="Comic Sans MS Bold" size="12.0" />
+         </font>
+         <effect>
+            <Glow />
+         </effect>
+      </Label>
+      <Label alignment="CENTER" layoutX="62.0" layoutY="604.0" prefHeight="26.0" prefWidth="98.0" style="-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 ); -fx-background-color: linear-gradient(#ffe657 0%, #f8c202 50%, #eea10b 100%);" text="Capacity:">
+         <font>
+            <Font name="Comic Sans MS Bold" size="12.0" />
+         </font>
+         <effect>
+            <Glow />
+         </effect>
+      </Label>
+      <TextField fx:id="packageNameField" layoutX="171.0" layoutY="447.0" prefHeight="26.0" prefWidth="366.0">
+         <font>
+            <Font name="Comic Sans MS Bold" size="12.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="priceField" layoutX="169.0" layoutY="492.0" prefHeight="26.0" prefWidth="124.0">
+         <font>
+            <Font name="Comic Sans MS Bold" size="12.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="extraDetailsField" layoutX="169.0" layoutY="565.0" prefHeight="26.0" prefWidth="366.0">
+         <font>
+            <Font name="Comic Sans MS Bold" size="12.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="capacityField" layoutX="169.0" layoutY="604.0" prefHeight="26.0" prefWidth="74.0">
+         <font>
+            <Font name="Comic Sans MS Bold" size="12.0" />
+         </font>
+      </TextField>
+      <DatePicker fx:id="startDatePicker" layoutX="170.0" layoutY="530.0" prefHeight="26.0" prefWidth="134.0" />
+      <DatePicker fx:id="endDatePicker" layoutX="400.0" layoutY="530.0" prefHeight="26.0" prefWidth="134.0" />
+      <Button fx:id="editPackageButton" layoutX="344.0" layoutY="601.0" mnemonicParsing="false" onAction="#editClick" prefHeight="31.0" prefWidth="144.0" style="-fx-background-radius: 50%; -fx-border-width: 10px; -fx-background-color: linear-gradient(#fcfcfc 0%, #d9d9d9 20%, #d6d6d6 100%); -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );" text="Edit package">
+         <font>
+            <Font name="Comic Sans MS Bold Italic" size="14.0" />
+         </font>
+         <effect>
+            <Glow />
+         </effect>
+      </Button>
+   </children>
+</AnchorPane>

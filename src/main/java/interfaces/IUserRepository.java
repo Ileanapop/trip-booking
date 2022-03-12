@@ -8,5 +8,5 @@ public interface IUserRepository {
 
     void insertNewUser(String id, String firstName,String lastName, String email,String username, String password);
     List<User> selectAllUsers();
-
+    User getUserById(String id);
 }
