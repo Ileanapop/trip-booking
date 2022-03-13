@@ -107,5 +107,18 @@
             <Glow />
          </effect>
       </Button>
+      <Label alignment="CENTER" layoutX="250.0" layoutY="644.0" prefHeight="27.0" prefWidth="147.0" style="-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 ); -fx-background-color: linear-gradient(#ffe657 0%, #f8c202 50%, #eea10b 100%);" text="Operation status:">
+         <font>
+            <Font name="Comic Sans MS Bold" size="14.0" />
+         </font>
+         <effect>
+            <Glow />
+         </effect>
+      </Label>
+      <TextField fx:id="opStatus" editable="false" layoutX="413.0" layoutY="644.0" prefHeight="26.0" prefWidth="410.0">
+         <font>
+            <Font name="Comic Sans MS Bold" size="12.0" />
+         </font>
+      </TextField>
    </children>
 </AnchorPane>

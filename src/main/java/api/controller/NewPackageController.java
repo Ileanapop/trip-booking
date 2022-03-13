@@ -1,5 +1,6 @@
 package api.controller;
 
+import Util.ExceptionHandler.OperationStatus;
 import Util.Mapper;
 import api.models.DestinationModel;
 import interfaces.IVacationPackageService;
@@ -63,14 +64,19 @@ public class NewPackageController {
     private Label capacityWarning;
 
     @FXML
+    private TextField opStatus;
+
+    @FXML
     void createClick(ActionEvent event) {
         if(!packageNameField.getText().equals("")){
             if(!priceField.getText().equals("")){
                 if(startDatePicker.getValue() != null && endDatePicker.getValue()!=null){
                     if(!capacityField.getText().equals("")){
-                        vacationPackageService.addVacationPackage(packageNameField.getText(),Double.parseDouble(priceField.getText()),
+
+                      OperationStatus operationStatus = vacationPackageService.addVacationPackage(packageNameField.getText(),Double.parseDouble(priceField.getText()),
                                 startDatePicker.getValue(),endDatePicker.getValue(),extraDetailsField.getText(),Integer.parseInt(capacityField.getText()), 0,Mapper.destinationModelToEntityModel(destinationModel));
-                        System.out.println("OK");
+                        //System.out.println("OK");
+                        opStatus.setText(operationStatus.getDescription());
 
                     }
                 }

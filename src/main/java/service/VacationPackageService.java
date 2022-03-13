@@ -1,5 +1,6 @@
 package service;
 
+import Util.ExceptionHandler.OperationError;
 import Util.ExceptionHandler.OperationStatus;
 
 import Util.Mapper;
@@ -9,6 +10,8 @@ import entity.TravelAgency.VacationPackage;
 import interfaces.IVacationPackageRepository;
 import interfaces.IVacationPackageService;
 import repository.VacationPackageRepository;
+import service.validators.TravelAgencyData.DateValidator;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,14 +22,40 @@ public class VacationPackageService implements IVacationPackageService {
 
     @Override
     public OperationStatus addVacationPackage(String name, Double price, LocalDate startDate, LocalDate endDate, String extraSpecifications, int capacity, int bookings,Destination destination) {
-        return  vacationPackageRepository.addVacationPackage(IDGeneratorService.generateUniqueID(),name,
-                price,startDate,endDate,extraSpecifications,capacity,bookings, destination);
-
+        DateValidator dateValidator = new DateValidator();
+        if(price>0.0) {
+            if (dateValidator.validateDate(startDate, endDate)) {
+                if (capacity > 0) {
+                    return vacationPackageRepository.addVacationPackage(IDGeneratorService.generateUniqueID(), name,
+                            price, startDate, endDate, extraSpecifications, capacity, bookings, destination);
+                }
+                else
+                    return new OperationError("Negative capacity");
+            }
+            else
+                return new OperationError("Invalid period, end date is before start date");
+        }
+        else
+            return new OperationError("Negative price");
     }
 
     @Override
     public OperationStatus editVacationPackage(String id,String name, Double price,LocalDate startDate, LocalDate endDate, String extraSpecifications, int capacity) {
-        return vacationPackageRepository.editVacationPackage(id,name,price,startDate,endDate,extraSpecifications,capacity);
+        DateValidator dateValidator = new DateValidator();
+        if(price>0.0) {
+            if (dateValidator.validateDate(startDate, endDate)) {
+                if (capacity > 0) {
+                    return vacationPackageRepository.editVacationPackage(id,name,price,startDate,endDate,extraSpecifications,capacity);
+                }
+                else
+                    return new OperationError("Negative capacity");
+            }
+            else
+                return new OperationError("Invalid period, end date is before start date");
+        }
+        else
+            return new OperationError("Negative price");
+
     }
 
     @Override

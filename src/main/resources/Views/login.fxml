@@ -66,5 +66,10 @@
       </Button>
       <Label fx:id="usernameWarning" layoutX="459.0" layoutY="187.0" text="Username required!" textAlignment="CENTER" textFill="#ed0606" visible="false" />
       <Label fx:id="passwordWarning" layoutX="459.0" layoutY="231.0" text="Password required!" textAlignment="CENTER" textFill="#ed0606" visible="false" />
+      <Label fx:id="authenticationWarning" layoutX="237.0" layoutY="146.0" prefHeight="18.0" prefWidth="202.0" text="Incorrect username or password" textAlignment="CENTER" textFill="#fa0808" visible="false">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

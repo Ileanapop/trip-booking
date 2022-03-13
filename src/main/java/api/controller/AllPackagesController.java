@@ -1,5 +1,6 @@
 package api.controller;
 
+import Util.ExceptionHandler.OperationStatus;
 import api.models.PackageStatusModel;
 import api.models.VacationPackageModel;
 import interfaces.IVacationPackageService;
@@ -55,13 +56,17 @@ public class AllPackagesController {
     private Button editPackageButton;
 
     @FXML
+    private TextField opStatus;
+
+    @FXML
     void editClick(ActionEvent event) {
         if (tableViewPackages.getSelectionModel().getSelectedItem() != null){
             VacationPackageModel vacationPackage = tableViewPackages.getSelectionModel().getSelectedItem();
-            vacationPackageService.editVacationPackage(vacationPackage.getId(),packageNameField.getText(),
+            OperationStatus operationStatus = vacationPackageService.editVacationPackage(vacationPackage.getId(),packageNameField.getText(),
                     Double.parseDouble(priceField.getText()),
                     startDatePicker.getValue(),endDatePicker.getValue(),
                     extraDetailsField.getText(),Integer.parseInt(capacityField.getText()));
+            opStatus.setText(operationStatus.getDescription());
             displayTableVacationPackages();
         }
     }

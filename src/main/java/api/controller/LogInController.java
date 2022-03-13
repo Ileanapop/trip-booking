@@ -41,6 +41,9 @@ public class LogInController {
     private Label passwordWarning;
 
     @FXML
+    private Label authenticationWarning;
+
+    @FXML
     void backClick(ActionEvent event) throws IOException {
         PageManagementController.setFirstPage(stage);
     }
@@ -58,6 +61,10 @@ public class LogInController {
                 UserModel userModel = userService.authenticateUser(usernameTextField.getText(), passwordField.getText());
                 if(userModel!=null){
                     PageManagementController.setUserPage(stage,userModel);
+                }
+                else
+                {
+                    authenticationWarning.setVisible(true);
                 }
             }
         }
