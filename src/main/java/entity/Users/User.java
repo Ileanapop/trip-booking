@@ -1,11 +1,12 @@
 package entity.Users;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+
+import entity.TravelAgency.VacationPackage;
 import lombok.*;
 
+import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -32,6 +33,12 @@ public class User {
 
     @Column(unique = true, nullable = false)
     private String username;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "user_package",
+                joinColumns = @JoinColumn(name = "user_id"),
+                inverseJoinColumns = @JoinColumn(name = "package_id"))
+    private List<VacationPackage> packages;
 
     public User(){}
 

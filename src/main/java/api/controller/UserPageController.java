@@ -5,6 +5,7 @@ import api.models.PackageStatusModel;
 import api.models.UserModel;
 import api.models.VacationPackageModel;
 import interfaces.IDestinationService;
+import interfaces.IUserService;
 import interfaces.IVacationPackageService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,6 +19,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import service.DestinationService;
+import service.UserService;
 import service.VacationPackageService;
 
 import java.time.LocalDate;
@@ -30,6 +32,7 @@ public class UserPageController {
     private UserModel userModel;
     private final IDestinationService destinationService = new DestinationService();
     private final IVacationPackageService vacationPackageService = new VacationPackageService();
+    private final IUserService userService = new UserService();
     private TableView<VacationPackageModel> tableViewPackages = new TableView<>();
 
     @FXML
@@ -44,11 +47,18 @@ public class UserPageController {
     @FXML
     private DatePicker endDatePicker;
 
-    @FXML
-    private Button filterButton;
 
     @FXML
     private Button myBookingsButton;
+
+    @FXML
+    private Button filterByDestinationButton;
+
+    @FXML
+    private Button filterByPriceButton;
+
+    @FXML
+    private Button filterByDateButton;
 
     @FXML
     private ComboBox<String > destinationComboBox;
@@ -63,14 +73,40 @@ public class UserPageController {
         tableViewPackages.setItems(observableList);
     }
 
-    @FXML
-    void filterClick(ActionEvent event) {
 
+    @FXML
+    void filterByDateClick(ActionEvent event) {
+        if(startDatePicker.getValue()!=null && endDatePicker.getValue()!=null){
+            List<VacationPackageModel> filteredPackages = vacationPackageService.filterPackagesByPeriod(startDatePicker.getValue(),endDatePicker.getValue());
+            ObservableList<VacationPackageModel> observableList = FXCollections.observableList(filteredPackages);
+            tableViewPackages.setItems(observableList);
+        }
+    }
+
+    @FXML
+    void filterByDestinationClick(ActionEvent event) {
+        if(destinationComboBox.getValue() != null){
+            List<VacationPackageModel> filteredPackages = vacationPackageService.filterPackagesByDestination(destinationComboBox.getValue());
+            ObservableList<VacationPackageModel> observableList = FXCollections.observableList(filteredPackages);
+            tableViewPackages.setItems(observableList);
+        }
+    }
+
+    @FXML
+    void filterByPriceClick(ActionEvent event) {
+        if(!priceFilter.getText().equals("")){
+            List<VacationPackageModel> filteredPackages = vacationPackageService.filterPackagesByDPrice(Double.parseDouble(priceFilter.getText()));
+            ObservableList<VacationPackageModel> observableList = FXCollections.observableList(filteredPackages);
+            tableViewPackages.setItems(observableList);
+        }
     }
 
     @FXML
     void myBookingsClick(ActionEvent event) {
-
+        packagesVBox.getChildren().remove(tableViewPackages);
+        ObservableList<VacationPackageModel> observableList = FXCollections.observableList(userModel.getPackages());
+        tableViewPackages.setItems(observableList);
+        packagesVBox.getChildren().add(tableViewPackages);
     }
 
     public void setDestinationComboBox(){
@@ -128,11 +164,11 @@ public class UserPageController {
             vacationPackageModel.getBook().setOnAction(new EventHandler() {
                 @Override
                 public void handle(Event event) {
-                    //vacationPackageService.deleteVacationPackage(vacationPackageModel.getId());
+                    userService.createBooking(userModel,vacationPackageModel);
+                    userModel.getPackages().add(vacationPackageModel);
                     availableBookingsClick();
                 }
             });
-
         }
     }
 

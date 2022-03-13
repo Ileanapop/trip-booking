@@ -1,7 +1,11 @@
 package repository;
 
+import entity.TravelAgency.Destination;
+import entity.TravelAgency.VacationPackage;
 import entity.Users.User;
 import interfaces.IUserRepository;
+import interfaces.IVacationPackageService;
+import service.VacationPackageService;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -41,5 +45,32 @@ public class UserRepository implements IUserRepository {
         em.close();
         return user;
     }
+
+    @Override
+    public boolean createBooking(String user_id, String package_id) {
+        EntityManager em = entityManagerFactory.createEntityManager();
+        em.getTransaction().begin();
+        User user = em.find(User.class,user_id);
+
+        VacationPackage vacationPackage = em.find(VacationPackage.class,package_id);
+        vacationPackage.setBookings(vacationPackage.getBookings() + 1);
+        IVacationPackageService vacationPackageService = new VacationPackageService();
+        vacationPackageService.editVacationPackage(vacationPackage.getId(), vacationPackage.getName(), vacationPackage.getPrice(),
+                vacationPackage.getStartDate(),vacationPackage.getEndDate(),vacationPackage.getExtraSpecifications(),vacationPackage.getPeopleCapacity());
+
+        user.getPackages().add(vacationPackage);
+        em.persist(user);
+        em.getTransaction().commit();
+        em.close();
+        return true;
+    }
+
+   /* @Override
+    public List<VacationPackage> getUserBookings(String user_id) {
+        EntityManager em = entityManagerFactory.createEntityManager();
+        em.getTransaction().begin();
+        User user = em.find(u)
+        Destination destination =(Destination) query.getResultList().get(0);
+    }*/
 
 }

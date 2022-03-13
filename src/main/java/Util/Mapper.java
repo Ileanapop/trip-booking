@@ -16,7 +16,9 @@ import java.util.List;
 public class Mapper {
 
     public static UserModel entityUserToModelUser(User user){
-        return new UserModel(user.getId(), user.getFirstName(), user.getLastName(), user.getPassword(), user.getEmail(), user.getUsername());
+        return new UserModel(user.getId(), user.getFirstName(),
+                user.getLastName(), user.getPassword(), user.getEmail(),
+                user.getUsername(), packageEntityListToPackageModelList(user.getPackages()));
     }
 
     public static DestinationModel entityDstToModelDst(Destination destination){
@@ -33,7 +35,7 @@ public class Mapper {
                 vacationPackage.getName(),vacationPackage.getPrice(),
                 vacationPackage.getStartDate(),vacationPackage.getEndDate(),
                 vacationPackage.getExtraSpecifications(),
-                vacationPackage.getPeopleCapacity(), vacationPackage.getBookings());
+                vacationPackage.getPeopleCapacity(), vacationPackage.getBookings(),entityDstToModelDst(vacationPackage.getDestination()));
     }
 
     public static List<DestinationModel> dstListEntitiesToDstModelList(List<Destination> destinationList){
@@ -69,4 +71,6 @@ public class Mapper {
         }
         return vacationPackageModels;
     }
+
+
 }

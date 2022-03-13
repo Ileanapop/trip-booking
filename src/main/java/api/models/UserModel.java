@@ -2,6 +2,10 @@ package api.models;
 
 
 import lombok.*;
+
+import java.util.List;
+import java.util.Set;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -21,6 +25,6 @@ public class UserModel {
 
     private String username;
 
-
+    private List<VacationPackageModel> packages;
 
 }

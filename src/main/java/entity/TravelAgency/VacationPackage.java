@@ -1,12 +1,15 @@
 package entity.TravelAgency;
 
 
+import entity.Users.User;
 import lombok.*;
 import net.bytebuddy.asm.Advice;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -42,6 +45,9 @@ public class VacationPackage {
     @ManyToOne
     @JoinColumn(name = "destination_id")
     private Destination destination;
+
+    @ManyToMany(mappedBy = "packages")
+    private List<User> user;
 
 
     public VacationPackage(){}

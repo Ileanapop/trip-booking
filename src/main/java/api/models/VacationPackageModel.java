@@ -26,10 +26,12 @@ public class VacationPackageModel {
 
     private int bookings;
 
+    private DestinationModel destinationModel;
+
     private Button delete;
     private Button book;
 
-    public VacationPackageModel(String id, String name, double price, LocalDate startDate, LocalDate endDate, String extraSpecifications, int peopleCapacity, int bookings) {
+    public VacationPackageModel(String id, String name, double price, LocalDate startDate, LocalDate endDate, String extraSpecifications, int peopleCapacity, int bookings, DestinationModel destinationModel) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -40,6 +42,7 @@ public class VacationPackageModel {
         this.bookings = bookings;
         this.delete = new Button("-");
         this.book = new Button("+");
+        this.destinationModel = destinationModel;
     }
 
     public PackageStatusModel getStatus(){

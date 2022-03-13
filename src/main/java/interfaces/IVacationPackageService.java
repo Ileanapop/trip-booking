@@ -16,4 +16,7 @@ public interface IVacationPackageService {
     List<VacationPackageModel> selectVacationPackages();
     OperationStatus deleteVacationPackage(String id);
     List<VacationPackageModel> getAvailablePackages();
+    List<VacationPackageModel> filterPackagesByDestination(String location);
+    List<VacationPackageModel> filterPackagesByDPrice(Double price);
+    List<VacationPackageModel> filterPackagesByPeriod(LocalDate startDate, LocalDate endDate);
 }

@@ -6,7 +6,6 @@ import Util.Mapper;
 import api.models.VacationPackageModel;
 import entity.TravelAgency.Destination;
 import entity.TravelAgency.VacationPackage;
-import entity.Users.User;
 import interfaces.IVacationPackageRepository;
 import interfaces.IVacationPackageService;
 import repository.VacationPackageRepository;
@@ -51,5 +50,42 @@ public class VacationPackageService implements IVacationPackageService {
             }
         }
         return availableVacationPackages;
+    }
+
+    @Override
+    public List<VacationPackageModel> filterPackagesByDestination(String location) {
+
+        List<VacationPackageModel> filteredPackages = new ArrayList<>();
+        List<VacationPackageModel> vacationPackageModels = Mapper.packageEntityListToPackageModelList(vacationPackageRepository.selectVacationPackages());
+
+        for(VacationPackageModel vacationPackageModel:vacationPackageModels){
+            if(vacationPackageModel.getDestinationModel().getLocation().equals(location))
+                filteredPackages.add(vacationPackageModel);
+        }
+        return filteredPackages;
+    }
+
+    @Override
+    public List<VacationPackageModel> filterPackagesByDPrice(Double price) {
+        List<VacationPackageModel> filteredPackages = new ArrayList<>();
+        List<VacationPackageModel> vacationPackageModels = Mapper.packageEntityListToPackageModelList(vacationPackageRepository.selectVacationPackages());
+
+        for(VacationPackageModel vacationPackageModel:vacationPackageModels){
+            if(vacationPackageModel.getPrice() < price)
+                filteredPackages.add(vacationPackageModel);
+        }
+        return filteredPackages;
+    }
+
+    @Override
+    public List<VacationPackageModel> filterPackagesByPeriod(LocalDate startDate, LocalDate endDate) {
+        List<VacationPackageModel> filteredPackages = new ArrayList<>();
+        List<VacationPackageModel> vacationPackageModels = Mapper.packageEntityListToPackageModelList(vacationPackageRepository.selectVacationPackages());
+
+        for(VacationPackageModel vacationPackageModel:vacationPackageModels){
+            if(vacationPackageModel.getStartDate().isAfter(startDate) && vacationPackageModel.getEndDate().isBefore(endDate))
+                filteredPackages.add(vacationPackageModel);
+        }
+        return filteredPackages;
     }
 }
