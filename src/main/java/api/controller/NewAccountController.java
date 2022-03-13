@@ -57,7 +57,7 @@ public class NewAccountController {
     }
 
     @FXML
-    void registerClick(ActionEvent event) {
+    void registerClick(ActionEvent event) throws IOException {
 
         if(!firstNameField.getText().equals("")){
             firstNameWarning.setVisible(false);
@@ -71,6 +71,7 @@ public class NewAccountController {
                             emailWarning.setVisible(false);
                             UserService userService = new UserService();
                             userService.insertUser(firstNameField.getText(),lastNameField.getText(),emailField.getText(),usernameField.getText(),passwordField.getText());
+                            PageManagementController.setLogInPage(stage);
                         }
                     }
                 }

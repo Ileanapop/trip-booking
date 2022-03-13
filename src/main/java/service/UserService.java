@@ -53,9 +53,9 @@ public class UserService implements IUserService {
     }
 
 
-   /* @Override
+    @Override
     public List<VacationPackageModel> getUserBookings(String user_id) {
-
-    }*/
+        return Mapper.packageEntityListToPackageModelList(userRepository.getUserBookings(user_id));
+    }
 
 }

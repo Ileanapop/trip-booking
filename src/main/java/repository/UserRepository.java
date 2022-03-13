@@ -65,12 +65,12 @@ public class UserRepository implements IUserRepository {
         return true;
     }
 
-   /* @Override
+    @Override
     public List<VacationPackage> getUserBookings(String user_id) {
         EntityManager em = entityManagerFactory.createEntityManager();
         em.getTransaction().begin();
-        User user = em.find(u)
-        Destination destination =(Destination) query.getResultList().get(0);
-    }*/
+        User user = em.find(User.class, user_id);
+        return  user.getPackages();
+    }
 
 }

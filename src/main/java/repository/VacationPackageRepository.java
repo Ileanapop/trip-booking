@@ -4,6 +4,7 @@ import Util.ExceptionHandler.OperationStatus;
 import Util.ExceptionHandler.OperationSuccess;
 import entity.TravelAgency.Destination;
 import entity.TravelAgency.VacationPackage;
+import entity.Users.User;
 import interfaces.IVacationPackageRepository;
 
 import javax.persistence.EntityManager;
@@ -62,6 +63,10 @@ public class VacationPackageRepository implements IVacationPackageRepository {
         em.getTransaction().begin();
         VacationPackage vacationPackage = em.find(VacationPackage.class,id);
         em.remove(vacationPackage);
+        for(User user: vacationPackage.getUser()){
+            user.getPackages().remove(vacationPackage);
+            em.persist(user);
+        }
         em.getTransaction().commit();
         em.close();
         return new OperationSuccess();

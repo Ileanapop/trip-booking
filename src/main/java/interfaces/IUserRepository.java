@@ -11,5 +11,5 @@ public interface IUserRepository {
     List<User> selectAllUsers();
     User getUserById(String id);
     boolean createBooking(String user_id, String package_id);
-    //List<VacationPackage> getUserBookings(String user_id);
+    List<VacationPackage> getUserBookings(String user_id);
 }

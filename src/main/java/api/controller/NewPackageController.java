@@ -71,6 +71,7 @@ public class NewPackageController {
                         vacationPackageService.addVacationPackage(packageNameField.getText(),Double.parseDouble(priceField.getText()),
                                 startDatePicker.getValue(),endDatePicker.getValue(),extraDetailsField.getText(),Integer.parseInt(capacityField.getText()), 0,Mapper.destinationModelToEntityModel(destinationModel));
                         System.out.println("OK");
+
                     }
                 }
             }

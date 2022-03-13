@@ -4,6 +4,7 @@ import api.models.DestinationModel;
 import api.models.PackageStatusModel;
 import api.models.UserModel;
 import api.models.VacationPackageModel;
+import entity.TravelAgency.VacationPackage;
 import interfaces.IDestinationService;
 import interfaces.IUserService;
 import interfaces.IVacationPackageService;
@@ -22,6 +23,7 @@ import service.DestinationService;
 import service.UserService;
 import service.VacationPackageService;
 
+import javax.swing.plaf.basic.BasicScrollPaneUI;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +72,20 @@ public class UserPageController {
     void availableBookingsClick() {
         List<VacationPackageModel> vacationPackageModels = vacationPackageService.getAvailablePackages();
         ObservableList<VacationPackageModel> observableList = FXCollections.observableList(vacationPackageModels);
+        disableAlreadyBookedPackages(vacationPackageModels);
         tableViewPackages.setItems(observableList);
+    }
+
+    private void disableAlreadyBookedPackages(List<VacationPackageModel> vacationPackageModels){
+        List<VacationPackageModel> alreadyBookedPackages = userService.getUserBookings(userModel.getId());
+
+        for(VacationPackageModel vacationPackageModel:vacationPackageModels){
+            for(VacationPackageModel alreadyBookedPackage: alreadyBookedPackages){
+                if(alreadyBookedPackage.getId().equals(vacationPackageModel.getId())){
+                    vacationPackageModel.getBook().setDisable(true);
+                }
+            }
+        }
     }
 
 
@@ -79,6 +94,7 @@ public class UserPageController {
         if(startDatePicker.getValue()!=null && endDatePicker.getValue()!=null){
             List<VacationPackageModel> filteredPackages = vacationPackageService.filterPackagesByPeriod(startDatePicker.getValue(),endDatePicker.getValue());
             ObservableList<VacationPackageModel> observableList = FXCollections.observableList(filteredPackages);
+            disableAlreadyBookedPackages(filteredPackages);
             tableViewPackages.setItems(observableList);
         }
     }
@@ -88,6 +104,7 @@ public class UserPageController {
         if(destinationComboBox.getValue() != null){
             List<VacationPackageModel> filteredPackages = vacationPackageService.filterPackagesByDestination(destinationComboBox.getValue());
             ObservableList<VacationPackageModel> observableList = FXCollections.observableList(filteredPackages);
+            disableAlreadyBookedPackages(filteredPackages);
             tableViewPackages.setItems(observableList);
         }
     }
@@ -97,6 +114,7 @@ public class UserPageController {
         if(!priceFilter.getText().equals("")){
             List<VacationPackageModel> filteredPackages = vacationPackageService.filterPackagesByDPrice(Double.parseDouble(priceFilter.getText()));
             ObservableList<VacationPackageModel> observableList = FXCollections.observableList(filteredPackages);
+            disableAlreadyBookedPackages(filteredPackages);
             tableViewPackages.setItems(observableList);
         }
     }
@@ -104,7 +122,11 @@ public class UserPageController {
     @FXML
     void myBookingsClick(ActionEvent event) {
         packagesVBox.getChildren().remove(tableViewPackages);
-        ObservableList<VacationPackageModel> observableList = FXCollections.observableList(userModel.getPackages());
+        List<VacationPackageModel> bookings = userService.getUserBookings(userModel.getId());
+        ObservableList<VacationPackageModel> observableList = FXCollections.observableList(bookings);
+        for(VacationPackageModel vacationPackageModel:bookings){
+            vacationPackageModel.getBook().setDisable(true);
+        }
         tableViewPackages.setItems(observableList);
         packagesVBox.getChildren().add(tableViewPackages);
     }
@@ -165,7 +187,7 @@ public class UserPageController {
                 @Override
                 public void handle(Event event) {
                     userService.createBooking(userModel,vacationPackageModel);
-                    userModel.getPackages().add(vacationPackageModel);
+                    //userModel.getPackages().add(vacationPackageModel);
                     availableBookingsClick();
                 }
             });

@@ -2,7 +2,10 @@ package repository;
 
 import entity.TravelAgency.Destination;
 import entity.TravelAgency.PopularityLevel;
+import entity.TravelAgency.VacationPackage;
 import interfaces.IDestinationRepository;
+import interfaces.IVacationPackageService;
+import service.VacationPackageService;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -35,10 +38,18 @@ public class DestinationRepository implements IDestinationRepository {
     public boolean deleteDestination(String id) {
         EntityManager em = entityManagerFactory.createEntityManager();
         em.getTransaction().begin();
-        Query query = em.createQuery("SELECT d FROM Destination d where d.id = :ID");
+        //Query query = em.createQuery("SELECT d FROM Destination d where d.id = :ID");
+        //query.setParameter("ID", id);
+        //Destination destination =(Destination) query.getResultList().get(0);
+        Destination destination = em.find(Destination.class,id);
+        //em.remove(destination);
+        IVacationPackageService vacationPackageService = new VacationPackageService();
+        for(VacationPackage vacationPackage: destination.getVacationPackageList()){
+            vacationPackageService.deleteVacationPackage(vacationPackage.getId());
+        }
+        Query query = em.createQuery("DELETE FROM Destination where id = :ID");
         query.setParameter("ID", id);
-        Destination destination =(Destination) query.getResultList().get(0);
-        em.remove(destination);
+        query.executeUpdate();
         em.getTransaction().commit();
         em.close();
         return true;
